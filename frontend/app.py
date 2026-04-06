@@ -357,24 +357,39 @@ if "file_id" in st.query_params:
 
 
 # ═════════════════════════════════════════════════════════════
-# 2. SENDER LOGIN GATE
+# 2. SENDER LOGIN GATE & LANDING PAGE
 # ═════════════════════════════════════════════════════════════
 
 if "user" not in st.session_state:
-    col1, col2, col3 = st.columns([1, 3, 1])
-    with col2:
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Feature Banner
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.info("**🔐 AES-256-GCM Vault**\n\nMilitary-grade authenticated encryption. Your decrypted files never touch physical disks.")
+    with c2:
+        st.warning("**🔥 Burn After Read**\n\nKeys are physically wiped when the vault expires or is viewed. Data recovery is cryptographically impossible.")
+    with c3:
+        st.success("**📋 Immutable Audit Logs**\n\nMonitor every vault access attempt, failed brute force attacks, and payload detonations in real-time.")
+        
+    st.markdown("<br><hr style='border:1px solid #30363d'><br>", unsafe_allow_html=True)
+    
+    # Login Box
+    col_l, col_m, col_r = st.columns([1, 2, 1])
+    with col_m:
         with st.container(border=True):
             st.markdown('<div style="text-align:center">', unsafe_allow_html=True)
-            st.write("### Authorized Sender Portal")
-            st.write(
-                "Log in to securely vault and transmit documents with custom timers and self-destruct settings."
-            )
-            if st.button("🔐 LOG IN WITH GOOGLE", type="primary", use_container_width=True):
+            st.write("### 🔑 Authorized Personnel")
+            st.caption("Authenticate to provision secure vaults and track transmissions.")
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("LOG IN WITH GOOGLE SSO", type="primary", use_container_width=True):
                 st.markdown(
                     f'<meta http-equiv="refresh" content="0; url={get_google_auth_url()}">',
                     unsafe_allow_html=True,
                 )
             st.markdown("</div>", unsafe_allow_html=True)
+            
+    st.markdown("<br><br><p style='text-align:center; color:#484f58; font-size:0.8rem;'>Protected by PBKDF2 Hashing • Ephemeral Storage • Zero Tracking</p>", unsafe_allow_html=True)
     st.stop()
 
 

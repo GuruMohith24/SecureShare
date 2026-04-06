@@ -9,6 +9,23 @@ def generate_key() -> bytes:
     return AESGCM.generate_key(bit_length=256)
 
 
+# --- E2E KEY DERIVATION (password → AES key) ---
+
+def derive_key(password: str, salt: bytes = None) -> tuple[bytes, bytes]:
+    """Derive a 256-bit AES key from a password using PBKDF2-SHA256.
+    The key is NEVER stored — only the salt is persisted.
+    Returns (aes_key, salt)."""
+    if salt is None:
+        salt = os.urandom(32)  # 256-bit salt for maximum entropy
+    aes_key = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        salt,
+        200_000,  # 200k iterations — OWASP recommended minimum
+    )
+    return aes_key, salt
+
+
 def encrypt_file(plaintext: bytes, key: bytes) -> tuple[bytes, bytes]:
     """Encrypt using AES-256-GCM. Returns (encrypted_data, nonce)."""
     aesgcm = AESGCM(key)
@@ -24,10 +41,11 @@ def decrypt_file(encrypted_data: bytes, key: bytes, nonce: bytes) -> bytes:
     return plaintext
 
 
-# --- PASSWORD HASHING (PBKDF2-SHA256 with random salt) ---
+# --- PASSWORD VERIFICATION (separate from encryption key) ---
 
 def hash_password(password: str) -> str:
     """Hash a password using PBKDF2-SHA256 with a random 16-byte salt.
+    Used ONLY for fast password verification — NOT for deriving the AES key.
     Returns a base64-encoded string containing salt + derived_key."""
     salt = os.urandom(16)
     key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 100_000)

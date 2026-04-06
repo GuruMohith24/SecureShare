@@ -17,7 +17,7 @@ def init_db():
             file_type TEXT DEFAULT 'application/pdf',
             original_size INTEGER DEFAULT 0,
             expires_at TIMESTAMP NOT NULL,
-            encryption_key BLOB,
+            key_salt BLOB,
             nonce BLOB,
             password_hash TEXT,
             burn_after_read BOOLEAN DEFAULT 0,
@@ -57,7 +57,7 @@ def store_metadata(
     file_id: str,
     filename: str,
     expires_at: datetime.datetime,
-    key: bytes,
+    key_salt: bytes,
     nonce: bytes,
     burn_after_read: bool = False,
     password_hash: str = None,
@@ -70,7 +70,7 @@ def store_metadata(
         c.execute(
             """
             INSERT INTO files (id, filename, file_type, original_size, expires_at,
-                               encryption_key, nonce, burn_after_read, password_hash,
+                               key_salt, nonce, burn_after_read, password_hash,
                                expired, uploaded_by)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)
             """,
@@ -80,7 +80,7 @@ def store_metadata(
                 file_type,
                 original_size,
                 expires_at.isoformat() if hasattr(expires_at, "isoformat") else expires_at,
-                key,
+                key_salt,
                 nonce,
                 1 if burn_after_read else 0,
                 password_hash,
@@ -94,7 +94,7 @@ def get_metadata(file_id: str) -> dict:
     with get_db() as conn:
         c = conn.cursor()
         c.execute(
-            """SELECT filename, encryption_key, nonce, expires_at, expired,
+            """SELECT filename, key_salt, nonce, expires_at, expired,
                       burn_after_read, password_hash, file_type
                FROM files WHERE id = ?""",
             (file_id,),
@@ -104,7 +104,7 @@ def get_metadata(file_id: str) -> dict:
             return None
         return {
             "filename": row[0],
-            "key": row[1],
+            "key_salt": row[1],
             "nonce": row[2],
             "expires_at": datetime.datetime.fromisoformat(row[3]) if isinstance(row[3], str) else row[3],
             "expired": bool(row[4]),
@@ -114,11 +114,11 @@ def get_metadata(file_id: str) -> dict:
         }
 
 
-def remove_key(file_id: str):
-    """Securely delete the encryption key and mark the file as expired."""
+def mark_expired(file_id: str):
+    """Mark the vault as expired. The key_salt becomes useless without the password."""
     with get_db() as conn:
         c = conn.cursor()
-        c.execute("UPDATE files SET encryption_key = NULL, expired = 1 WHERE id = ?", (file_id,))
+        c.execute("UPDATE files SET key_salt = NULL, expired = 1 WHERE id = ?", (file_id,))
         conn.commit()
 
 
