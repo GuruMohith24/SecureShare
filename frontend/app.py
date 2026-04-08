@@ -277,37 +277,89 @@ if "file_id" in st.query_params:
                 # Smart viewer based on file type
                 if file_type.startswith("image/"):
                     # IMAGE viewer
-                    st.markdown(
-                        f"""
-                        <div style="position:relative; width:100%; border-radius:12px; overflow:hidden; border:1px solid #30363d;">
-                            <img src="data:{file_type};base64,{b64}"
-                                style="width:100%; display:block; background:white;">
-                            <div style="position:absolute; top:0; left:0; width:100%; height:100%;
-                                        pointer-events:none; z-index:10; overflow:hidden;">
-                                {watermark_divs}
-                            </div>
+                    # IMAGE viewer — Uses components for JS self-destruct
+                    img_html = f"""
+                    <div id="img-wrap" style="position:relative; width:100%; border-radius:12px; overflow:hidden; border:1px solid #30363d; background:white;">
+                        <img src="data:{file_type};base64,{b64}" style="width:100%; display:block; object-fit:contain;">
+                        <div style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; overflow:hidden;">
+                            {watermark_divs}
                         </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
+                    </div>
+                    <script>
+                        setTimeout(function() {{
+                            document.getElementById('img-wrap').innerHTML = 
+                                '<div style="padding:100px 20px; text-align:center; font-family:sans-serif; background:#0d1117;">' +
+                                '<h2 style="color:#f85149; font-size:2rem; margin:0;">VAULT EXPIRED</h2>' +
+                                '<p style="color:#8b949e;">The image has been securely destroyed.</p></div>';
+                        }}, {max(0, remaining_secs)} * 1000);
+                    </script>
+                    """
+                    components.html(img_html, height=700, scrolling=True)
 
                 elif file_type == "application/pdf":
-                    # PDF viewer
-                    st.markdown(
-                        f"""
-                        <div style="position:relative; width:100%; border-radius:12px; overflow:hidden; border:1px solid #30363d;">
-                            <iframe src="data:application/pdf;base64,{b64}#toolbar=0"
-                                width="100%" height="800"
-                                style="border:none; display:block; background:white;">
-                            </iframe>
-                            <div style="position:absolute; top:0; left:0; width:100%; height:100%;
-                                        pointer-events:none; z-index:10; overflow:hidden;">
-                                {watermark_divs}
-                            </div>
-                        </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
+                    # PDF viewer — PDF.js canvas renderer (works in all browsers)
+                    pdf_html = f"""
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+                    <style>
+                        #pdf-wrap {{
+                            position: relative; width: 100%; border-radius: 12px;
+                            overflow-y: auto; border: 1px solid #30363d; background: #fff;
+                        }}
+                        #pdf-wrap canvas {{ width: 100%; display: block; }}
+                        .wm {{
+                            position: absolute; transform: rotate(-35deg);
+                            font-size: 1.4rem; opacity: 0.07; color: #000;
+                            font-weight: 700; white-space: nowrap; letter-spacing: 6px;
+                            pointer-events: none; user-select: none;
+                        }}
+                    </style>
+                    <div id="pdf-wrap"></div>
+                    <script>
+                        // Self-destruct the viewer when the timer expires
+                        setTimeout(function() {{
+                            document.getElementById('pdf-wrap').innerHTML = 
+                                '<div style="padding:100px 20px; text-align:center; font-family:sans-serif;">' +
+                                '<h2 style="color:#f85149; font-size:2rem; margin:0;">VAULT EXPIRED</h2>' +
+                                '<p style="color:#8b949e;">The document has been securely destroyed.</p></div>';
+                        }}, {max(0, remaining_secs)} * 1000);
+
+                        pdfjsLib.GlobalWorkerOptions.workerSrc =
+                            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+                        const raw = atob('{b64}');
+                        const arr = new Uint8Array(raw.length);
+                        for (let i = 0; i < raw.length; i++) arr[i] = raw.charCodeAt(i);
+
+                        const wrap = document.getElementById('pdf-wrap');
+
+                        pdfjsLib.getDocument({{data: arr}}).promise.then(async function(pdf) {{
+                            for (let p = 1; p <= pdf.numPages; p++) {{
+                                const page = await pdf.getPage(p);
+                                const vp = page.getViewport({{scale: 1.8}});
+                                const canvas = document.createElement('canvas');
+                                canvas.width = vp.width;
+                                canvas.height = vp.height;
+                                wrap.appendChild(canvas);
+                                await page.render({{canvasContext: canvas.getContext('2d'), viewport: vp}}).promise;
+                            }}
+
+                            // Add watermarks after render
+                            const positions = [
+                                [5,10],[5,55],[25,-5],[25,40],[25,80],
+                                [45,15],[45,60],[65,-5],[65,40],[65,80],[85,10],[85,55]
+                            ];
+                            positions.forEach(function(pos) {{
+                                const d = document.createElement('div');
+                                d.className = 'wm';
+                                d.style.top = pos[0] + '%';
+                                d.style.left = pos[1] + '%';
+                                d.innerHTML = 'SECURESHARE &bull; CONFIDENTIAL';
+                                wrap.appendChild(d);
+                            }});
+                        }});
+                    </script>
+                    """
+                    components.html(pdf_html, height=900, scrolling=True)
 
                 elif file_type == "text/plain" or file_type == "text/csv":
                     # TEXT viewer

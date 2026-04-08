@@ -1,0 +1,238 @@
+<mxfile host="app.diagrams.net" modified="2026-04-08">
+  <diagram name="SecureShare Architecture" id="secureshare-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== TITLE ========== -->
+        <mxCell id="title" value="&lt;b&gt;SecureShare — System Architecture&lt;/b&gt;" style="text;html=1;fontSize=22;fontFamily=Inter;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="End-to-End Encrypted Ephemeral Document Vault" style="text;html=1;fontSize=12;fontFamily=Inter;align=center;verticalAlign=middle;fillColor=none;strokeColor=none;fontColor=#58A6FF;" vertex="1" parent="1">
+          <mxGeometry x="450" y="55" width="400" height="25" as="geometry" />
+        </mxCell>
+
+        <!-- ========== SENDER (LEFT) ========== -->
+        <mxCell id="sender-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A1E24;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="220" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="sender-title" value="&lt;b&gt;👤 SENDER&lt;/b&gt;" style="text;html=1;fontSize=14;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="85" y="130" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sender-auth" value="🔐 Google OAuth 2.0&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;SSO Authentication&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sender-upload" value="📄 Upload Document&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;PDF, DOCX, XLSX, PNG, ZIP...&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="60" y="225" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sender-config" value="⚙️ Set Password + Timer&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;Burn After Read toggle&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sender-link" value="🔗 Gets Secure Vault Link" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#238636;strokeColor=#3FB950;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="60" y="335" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ========== FRONTEND (Streamlit) ========== -->
+        <mxCell id="frontend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#161B22;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="120" width="250" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="frontend-title" value="&lt;b&gt;🖥️ FRONTEND&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#8B949E'&gt;Streamlit (Python)&lt;/font&gt;" style="text;html=1;fontSize=14;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="390" y="128" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-landing" value="🏠 Landing Page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="355" y="178" width="105" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-dashboard" value="📊 Dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="470" y="178" width="105" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-viewer" value="👁️ PDF.js Viewer&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;Canvas Rendering + Watermarks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="355" y="220" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-timer" value="⏱️ Live Countdown Timer&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;JavaScript + Auto-Redirect&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="355" y="268" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-audit" value="📋 Audit Log Viewer&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;Color-coded access trail&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="355" y="316" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="fe-oauth" value="🔐 Google OAuth Flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="355" y="364" width="220" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- ========== BACKEND (FastAPI) ========== -->
+        <mxCell id="backend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#161B22;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="120" width="280" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="backend-title" value="&lt;b&gt;⚙️ BACKEND&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#8B949E'&gt;FastAPI (Python) — REST API&lt;/font&gt;" style="text;html=1;fontSize=14;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="720" y="128" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-upload" value="POST /upload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#238636;strokeColor=#3FB950;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="685" y="178" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="be-download" value="GET /download/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1F6FEB;strokeColor=#58A6FF;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="815" y="178" width="120" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="be-crypto" value="🔐 E2E Encryption Engine&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;PBKDF2 (200k rounds) → AES-256-GCM&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="685" y="216" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-rate" value="🛡️ Rate Limiter&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;5 attempts / 10 min lockout&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D2E00;strokeColor=#9E6A03;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="685" y="266" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-cleanup" value="🧹 APScheduler&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;Auto-purge expired vaults&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D2E00;strokeColor=#9E6A03;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="815" y="266" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-audit" value="📋 Audit Logger&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;IP + Action + Timestamp&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D1F3D;strokeColor=#8957E5;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="685" y="316" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-burn" value="🔥 Burn-After-Read&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;Destroy on first view&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="815" y="316" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="be-files" value="GET /files  |  GET /audit/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#8B949E;fontSize=9;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="685" y="366" width="250" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ========== DATABASE ========== -->
+        <mxCell id="db-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#161B22;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="120" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="db-title" value="&lt;b&gt;🗄️ DATABASE&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#8B949E'&gt;SQLite + PRAGMA secure_delete&lt;/font&gt;" style="text;html=1;fontSize=14;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="128" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="db-files" value="📁 files table&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;key_salt, nonce, password_hash&lt;br&gt;expires_at, burn_after_read&lt;br&gt;⚠️ NO encryption_key column&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="175" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="db-audit" value="📋 access_log table&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;file_id, action, ip, timestamp&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="240" width="170" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ========== FILE STORAGE ========== -->
+        <mxCell id="fs-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#161B22;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="310" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="fs-title" value="&lt;b&gt;💾 FILE STORAGE&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#8B949E'&gt;backend/uploads/&lt;/font&gt;" style="text;html=1;fontSize=12;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="318" width="180" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="fs-detail" value="🔒 Encrypted blobs only&lt;br&gt;&lt;font style='font-size:8px;color:#8B949E'&gt;Plaintext NEVER touches disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A3A2A;strokeColor=#238636;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="358" width="170" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- ========== RECIPIENT (RIGHT) ========== -->
+        <mxCell id="recv-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A1E24;strokeColor=#30363D;arcSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="120" width="220" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="recv-title" value="&lt;b&gt;👁️ RECIPIENT&lt;/b&gt;" style="text;html=1;fontSize=14;fontFamily=Inter;align=center;fillColor=none;strokeColor=none;fontColor=#E6EDF3;" vertex="1" parent="1">
+          <mxGeometry x="1355" y="130" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="recv-link" value="🔗 Opens Vault Link&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;No login required&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="175" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="recv-pwd" value="🔑 Enters Security Key&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;Key re-derives AES-256 key&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="227" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="recv-view" value="📄 Views Decrypted Document&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;PDF.js + Watermarks + Timer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#238636;strokeColor=#3FB950;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="279" width="180" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="recv-burn" value="🔥 Vault Destroys Itself" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#F85149;fontSize=11;fontFamily=Inter;fontStyle=1;arcSize=20;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="335" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ========== ARROWS ========== -->
+        <!-- Sender → Frontend -->
+        <mxCell id="arrow1" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#58A6FF;fontColor=#58A6FF;fontSize=9;fontFamily=Inter;" edge="1" parent="1" source="sender-box" target="frontend-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Frontend → Backend -->
+        <mxCell id="arrow2" value="REST API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#3FB950;fontColor=#3FB950;fontSize=9;fontFamily=Inter;" edge="1" parent="1" source="frontend-box" target="backend-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → Database -->
+        <mxCell id="arrow3" value="SQLite" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.3;entryX=0;entryY=0.5;strokeColor=#D29922;fontColor=#D29922;fontSize=9;fontFamily=Inter;" edge="1" parent="1" source="backend-box" target="db-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Backend → File Storage -->
+        <mxCell id="arrow4" value="Encrypted Blobs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.75;entryX=0;entryY=0.5;strokeColor=#DA3633;fontColor=#DA3633;fontSize=9;fontFamily=Inter;" edge="1" parent="1" source="backend-box" target="fs-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Frontend → Recipient -->
+        <mxCell id="arrow5" value="Vault Link" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeColor=#58A6FF;fontColor=#58A6FF;fontSize=9;fontFamily=Inter;dashed=1;" edge="1" parent="1" source="frontend-box" target="recv-box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="260" />
+              <mxPoint x="620" y="480" />
+              <mxPoint x="1300" y="480" />
+              <mxPoint x="1300" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== ENCRYPTION FLOW (BOTTOM) ========== -->
+        <mxCell id="flow-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D1117;strokeColor=#1F6FEB;arcSize=8;shadow=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="1190" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-title" value="&lt;b&gt;🔐 E2E Encryption Flow&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Inter;align=left;fillColor=none;strokeColor=none;fontColor=#58A6FF;" vertex="1" parent="1">
+          <mxGeometry x="55" y="448" width="200" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="f1" value="Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#21262D;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="55" y="478" width="85" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f1a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f1" target="f2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" value="+ Salt&lt;br&gt;&lt;font style='font-size:8px'&gt;(32 bytes)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D2E00;strokeColor=#9E6A03;fontColor=#D29922;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="175" y="478" width="85" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f2a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f2" target="f3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" value="PBKDF2&lt;br&gt;&lt;font style='font-size:8px'&gt;200,000 rounds&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#F85149;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="295" y="478" width="105" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f3a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f3" target="f4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f4" value="AES-256 Key&lt;br&gt;&lt;font style='font-size:8px;color:#F85149'&gt;⚠️ NEVER STORED&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="435" y="478" width="120" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f4a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f4" target="f5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f5" value="AES-256-GCM&lt;br&gt;&lt;font style='font-size:8px'&gt;Encrypt + Authenticate&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D419D;strokeColor=#1F6FEB;fontColor=#E6EDF3;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="590" y="478" width="130" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f5a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f5" target="f6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f6" value="Encrypted Blob&lt;br&gt;&lt;font style='font-size:8px'&gt;Stored on disk&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A3A2A;strokeColor=#238636;fontColor=#3FB950;fontSize=10;fontFamily=Inter;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="755" y="478" width="110" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f6a" value="" style="endArrow=classic;html=1;strokeColor=#58A6FF;" edge="1" parent="1" source="f6" target="f7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f7" value="🗑️ del aes_key&lt;br&gt;&lt;font style='font-size:8px'&gt;Wiped from RAM&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D1F1F;strokeColor=#DA3633;fontColor=#F85149;fontSize=10;fontFamily=Inter;arcSize=30;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="478" width="110" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="f7a" value="" style="endArrow=classic;html=1;strokeColor=#3FB950;" edge="1" parent="1" source="f7" target="f8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f8" value="✅ DONE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#238636;strokeColor=#3FB950;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;arcSize=30;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="481" width="80" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ========== GOOGLE CLOUD (TOP RIGHT) ========== -->
+        <mxCell id="google" value="☁️ Google Cloud&lt;br&gt;&lt;font style='font-size:9px;color:#8B949E'&gt;OAuth 2.0 Provider&lt;/font&gt;" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#161B22;strokeColor=#30363D;fontColor=#E6EDF3;fontSize=11;fontFamily=Inter;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="440" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-google" value="OAuth Token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;strokeColor=#8B949E;fontColor=#8B949E;fontSize=8;fontFamily=Inter;dashed=1;entryX=0.5;entryY=0;exitX=0.5;exitY=1;" edge="1" parent="1" source="recv-box" target="google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
